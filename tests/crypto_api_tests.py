@@ -1,57 +1,65 @@
-import requests
 from src.utils.crypto_api import get_crypto_historical_price
+from datetime import datetime, timedelta
 
 
-def test_bitcoin_actual_price():
-    # Arrange
+# Coingecko free API support dates from May-2013 until present date
+
+
+def test_supported_crypto_with_supported_date():
+    date = "30-12-2017"
     crypto = "bitcoin"
-    coingecko_api_url = "https://api.coingecko.com/api/v3/simple/price?ids=" + crypto + "&vs_currencies=usd"
-
-    # Act
-    response = requests.get(coingecko_api_url)
-    data = response.json()
-    price = data['bitcoin']['usd']
-
-    # Assert
-    assert price >= 0
-
-
-def test_bitcoin_historical_price():
-    # Arrange
-    date = "30-12-2017"
-    coingecko_api_url = "https://api.coingecko.com/api/v3/coins/bitcoin/history?date=" + date
-
-    # Act
-    response = requests.get(coingecko_api_url)
-    data = response.json()
-    price = data['market_data']['current_price']['usd']
-
-    # Assert
-    assert price == 13620.3618741461
-
-
-def test_crypto_historical_price():
-    # Arrange
-    date = "30-12-2017"
-    crypto = 'bitcoin'
-    coingecko_api_url = "https://api.coingecko.com/api/v3/coins/" + crypto + "/history?date=" + date
-
-    # Act
-    response = requests.get(coingecko_api_url)
-    data = response.json()
-    price = data['market_data']['current_price']['usd']
-
-    # Assert
-    assert price == 13620.3618741461
-
-
-def test_crypto_historical_price_with_function():
-    # Arrange
-    date = "30-12-2017"
-    crypto = 'bitcoin'
-
-    # Act
     price = get_crypto_historical_price(crypto, date)
-
-    # Assert
     assert price == 13620.3618741461
+
+
+def test_supported_crypto_with_unsupported_past_date():
+    date = "01-04-2013"
+    crypto = "bitcoin"
+    result = get_crypto_historical_price(crypto, date)
+    assert result == "Date is not supported"
+
+
+def test_supported_crypto_with_unsupported_future_date():
+    present_date = datetime.now()
+    tomorrow_date = present_date + timedelta(1)
+    tomorrow_date = tomorrow_date.strftime('%d-%m-%Y')  # tomorrow's date in DD-MM-YYYY format
+    crypto = "bitcoin"
+    result = get_crypto_historical_price(crypto, tomorrow_date)
+    assert result == "Date is not supported"
+
+
+def test_supported_crypto_with_invalid_date_value():
+    date = "qwerty"
+    crypto = "bitcoin"
+    result = get_crypto_historical_price(crypto, date)
+    assert result == "Date is not supported"
+
+
+def test_unsupported_crypto_with_supported_date():
+    date = "30-12-2017"
+    crypto = "qwerty"
+    result = get_crypto_historical_price(crypto, date)
+    assert result == "Crypto is not supported"
+
+
+def test_unsupported_crypto_with_unsupported_past_date():
+    date = "01-04-2013"
+    crypto = ""
+    result = get_crypto_historical_price(crypto, date)
+    assert result == "Crypto is not supported"
+
+
+def test_unsupported_crypto_with_unsupported_future_date():
+    present_date = datetime.now()
+    tomorrow_date = present_date + timedelta(1)
+    tomorrow_date = tomorrow_date.strftime('%d-%m-%Y')  # tomorrow's date in DD-MM-YYYY format
+    crypto = "qwerty"
+    result = get_crypto_historical_price(crypto, tomorrow_date)
+    assert result == "Crypto is not supported"
+
+
+def test_unsupported_crypto_with_invalid_date_value():
+    date = ""
+    crypto = ""
+    result = get_crypto_historical_price(crypto, date)
+    assert result == "Crypto is not supported"
