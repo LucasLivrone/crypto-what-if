@@ -2,9 +2,6 @@ from src.utils.crypto_api import get_crypto_historical_price
 from datetime import datetime, timedelta
 
 
-# Coingecko free API support dates from May-2013 until present date
-
-
 def test_supported_crypto_with_supported_date():
     date = "30-12-2017"
     crypto = "bitcoin"
