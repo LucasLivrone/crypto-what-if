@@ -19,6 +19,7 @@ pyOpenSSL==22.0.0
 pyparsing==3.0.9
 PySocks==1.7.1
 pytest==7.1.2
+pytest-cov==3.0.0
 python-dotenv==0.20.0
 requests==2.27.1
 selenium==4.2.0
