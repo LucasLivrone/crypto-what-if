@@ -8,4 +8,4 @@ RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
 
 COPY ./src /code/src
 
-CMD ["uvicorn", "src.main:app" , "--host", "crypto-what-if.herokuapp.com"]
+CMD ["uvicorn", "src.main:app"]
