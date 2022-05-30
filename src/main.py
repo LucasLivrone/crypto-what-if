@@ -14,5 +14,5 @@ async def root():
 
 
 if __name__ == "__main__":
-    port = os.getenv('PORT', default=80)  # Open port for deployment to Heroku.
+    port = int(os.environ.get("PORT", default=80))
     uvicorn.run("main:app", host="0.0.0.0", port=port)
