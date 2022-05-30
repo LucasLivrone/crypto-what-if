@@ -1,1 +1,1 @@
-web: gunicorn src/main:app 0.0.0.0:$PORT
+web: uvicorn src/main:app 0.0.0.0:$PORT
