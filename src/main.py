@@ -13,6 +13,6 @@ async def root():
     return {"message": "Hello World"}
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     port = int(os.environ.get("PORT", default=80))
     uvicorn.run("main:app", host="0.0.0.0", port=port)
