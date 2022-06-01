@@ -1,2 +1,9 @@
 # Environment
 venv/
+
+# Cache
+.pytest_cache
+__pycache__
+
+# Idea
+.idea/
