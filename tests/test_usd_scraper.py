@@ -1,4 +1,5 @@
 from src.utils.usd_scraper import get_usd_historical_price
+# from src.utils.usd_scraper import get_usd_historical_price
 from datetime import datetime, timedelta
 
 
