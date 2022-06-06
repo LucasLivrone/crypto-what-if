@@ -1,9 +1,17 @@
+from src.utils.usd_scraper import get_usd_historical_price
+from src.utils.crypto_api import get_crypto_historical_price
+from src.utils.crypto_api import get_crypto_actual_price
+
+
 def calculate(
         ars_quantity,
-        usd_purchased_price,
-        crypto_purchased_price,
-        crypto_actual_price,
+        crypto,
+        date,
 ):
+    usd_purchased_price = get_usd_historical_price(date)
+    crypto_purchased_price = get_crypto_historical_price(crypto, date)
+    crypto_actual_price = get_crypto_actual_price(crypto)
+
     usd_purchased_quantity = ars_quantity / usd_purchased_price
     crypto_purchased_quantity = usd_purchased_quantity / crypto_purchased_price
     purchased_crypto_actual_value = crypto_purchased_quantity * crypto_actual_price

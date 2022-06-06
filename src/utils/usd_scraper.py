@@ -23,11 +23,15 @@ def get_xpath(date):
     return xpath
 
 
+def scrap_price(driver, price_xpath):
+    return WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, price_xpath))).text
+
+
 def get_usd_historical_price(date):
     if date_is_supported(date):
         driver = get_web_driver()
         price_xpath = get_xpath(date)
-        price = WebDriverWait(driver, 15).until(EC.element_to_be_clickable((By.XPATH, price_xpath))).text
+        price = scrap_price(driver, price_xpath)
         price = price[1:]  # Remove '$' from price
         price = price.replace(",", ".")
         price = float(price)

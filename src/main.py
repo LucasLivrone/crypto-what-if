@@ -1,6 +1,8 @@
 import os
 import uvicorn
 from fastapi import FastAPI
+from src.utils.calculator import calculate
+
 
 app = FastAPI(
     title="Crypto What If",
@@ -11,6 +13,11 @@ app = FastAPI(
 @app.get("/")
 async def root():
     return {"message": "Hello World"}
+
+
+@app.get("/ars={ars_quantity}/crypto={crypto}/date={date}")
+async def evaluate(ars_quantity: int, crypto: str, date: str):
+    return calculate(ars_quantity, crypto, date)
 
 
 if __name__ == "__main__":  # pragma: no cover
