@@ -1,10 +1,20 @@
-from src.utils.calculator import calculate
+import pytest
+from src.main import root
+from src.main import evaluate
 from src.utils.crypto_api import get_crypto_actual_price
-
 
 # TODO: Mock API results
 
-def test_supported_crypto_with_supported_date():
+
+@pytest.mark.asyncio
+async def test_root():
+    expected_result = {"message": "Hello World"}
+    actual_result = await root()
+    assert expected_result == actual_result
+
+
+@pytest.mark.asyncio
+async def test_supported_crypto_with_supported_date():
     ars_quantity = 1000
     crypto = "bitcoin"
     date = "30-12-2017"
@@ -17,32 +27,36 @@ def test_supported_crypto_with_supported_date():
         "purchased_crypto_actual_value": 0.0038887440865616398 * crypto_actual_price,
         "crypto_value_improvement": (crypto_actual_price * 100) / crypto_purchased_price
     }
-    actual_result = calculate(ars_quantity, crypto, date)
+
+    actual_result = await evaluate(ars_quantity, crypto, date)
     assert expected_result == actual_result
 
 
-def test_supported_crypto_with_unsupported_date():
+@pytest.mark.asyncio
+async def test_supported_crypto_with_unsupported_date():
     ars_quantity = 1000
     crypto = "bitcoin"
     date = ""
     expected_result = "Date is not supported"
-    actual_result = calculate(ars_quantity, crypto, date)
+    actual_result = await evaluate(ars_quantity, crypto, date)
     assert expected_result == actual_result
 
 
-def test_unsupported_crypto_with_unsupported_date():
+@pytest.mark.asyncio
+async def test_unsupported_crypto_with_unsupported_date():
     ars_quantity = 1000
+    crypto = ""
     date = ""
-    crypto = ""
     expected_result = "Date is not supported"
-    actual_result = calculate(ars_quantity, crypto, date)
+    actual_result = await evaluate(ars_quantity, crypto, date)
     assert expected_result == actual_result
 
 
-def test_unsupported_crypto_with_supported_date():
+@pytest.mark.asyncio
+async def test_unsupported_crypto_with_supported_date():
     ars_quantity = 1000
-    date = "30-12-2017"
     crypto = ""
+    date = "30-12-2017"
     expected_result = "Crypto is not supported"
-    actual_result = calculate(ars_quantity, crypto, date)
+    actual_result = await evaluate(ars_quantity, crypto, date)
     assert expected_result == actual_result
