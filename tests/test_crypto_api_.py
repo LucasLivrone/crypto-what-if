@@ -1,4 +1,5 @@
 from src.utils.crypto_api import get_crypto_historical_price
+from src.utils.crypto_api import get_crypto_actual_price
 from datetime import datetime, timedelta
 
 
@@ -59,4 +60,10 @@ def test_unsupported_crypto_with_invalid_date_value():
     date = ""
     crypto = ""
     result = get_crypto_historical_price(crypto, date)
+    assert result == "Crypto is not supported"
+
+
+def test_unsupported_crypto_with_actual_date():
+    crypto = ""
+    result = get_crypto_actual_price(crypto)
     assert result == "Crypto is not supported"
