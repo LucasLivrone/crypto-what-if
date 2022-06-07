@@ -5,6 +5,7 @@ In order to get web scraping data I moved from using Selenium to BeautifulSoup.
 This improved scraping performance by 10 seconds.
 
 Legacy Selenium code:
+
 ````python
 from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
@@ -12,7 +13,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from src.utils.date_validator import date_is_supported
+from src.utils.validation import date_is_supported
 
 
 def get_web_driver():
