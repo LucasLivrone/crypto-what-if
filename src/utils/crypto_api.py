@@ -1,5 +1,5 @@
 import requests
-from src.utils.date_validator import date_is_supported
+from src.utils.validation import date_is_supported
 
 
 def get_crypto_historical_price(crypto, date):
