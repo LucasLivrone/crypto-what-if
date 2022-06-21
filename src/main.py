@@ -2,7 +2,7 @@ import os
 import uvicorn
 from fastapi import FastAPI
 from src.utils.calculator import calculate
-from src.utils.validation import input_is_valid
+from src.utils.validation import input_is_valid, input_failure
 
 app = FastAPI(
     title="Crypto What If",
@@ -20,7 +20,7 @@ async def evaluate(ars_quantity: int, crypto: str, date: str):
     if input_is_valid(ars_quantity, crypto, date):
         return calculate(ars_quantity, crypto, date)
     else:
-        return "Input is not valid"
+        return input_failure(ars_quantity, crypto)
 
 
 if __name__ == "__main__":  # pragma: no cover
