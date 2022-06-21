@@ -12,9 +12,9 @@ def calculate(
     crypto_purchased_price = get_crypto_historical_price(crypto, date)
     crypto_actual_price = get_crypto_actual_price(crypto)
 
-    for value in [usd_purchased_price, crypto_purchased_price, crypto_actual_price]:
-        if isinstance(value, str):
-            return value
+    for price in [crypto_purchased_price, crypto_actual_price]:
+        if isinstance(price, str):
+            return price
 
     usd_purchased_quantity = ars_quantity / usd_purchased_price
     crypto_purchased_quantity = usd_purchased_quantity / crypto_purchased_price
