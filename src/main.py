@@ -20,7 +20,7 @@ async def evaluate(ars_quantity: int, crypto: str, date: str):
     if input_is_valid(ars_quantity, crypto, date):
         return calculate(ars_quantity, crypto, date)
     else:
-        return input_failure(ars_quantity, crypto)
+        return input_failure(ars_quantity, crypto, date)
 
 
 if __name__ == "__main__":  # pragma: no cover

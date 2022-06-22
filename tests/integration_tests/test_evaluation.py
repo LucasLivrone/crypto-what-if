@@ -11,7 +11,6 @@ async def test_root():
     assert expected_result == actual_result
 
 
-# TODO: Mock API results
 @pytest.mark.asyncio
 async def test_supported_crypto_with_supported_date():
     ars_quantity = 1000
@@ -30,42 +29,3 @@ async def test_supported_crypto_with_supported_date():
     actual_result = await evaluate(ars_quantity, crypto, date)
     assert expected_result == actual_result
 
-
-@pytest.mark.asyncio
-async def test_supported_crypto_with_unsupported_date():
-    ars_quantity = 1000
-    crypto = "bitcoin"
-    date = ""
-    expected_result = "Date is not supported"
-    actual_result = await evaluate(ars_quantity, crypto, date)
-    assert expected_result == actual_result
-
-
-@pytest.mark.asyncio
-async def test_unsupported_crypto_with_supported_date():
-    ars_quantity = 1000
-    crypto = ""
-    date = "30-12-2017"
-    expected_result = "Crypto is not supported"
-    actual_result = await evaluate(ars_quantity, crypto, date)
-    assert expected_result == actual_result
-
-
-@pytest.mark.asyncio
-async def test_unsupported_crypto_with_unsupported_date():
-    ars_quantity = 1000
-    crypto = ""
-    date = ""
-    expected_result = "Crypto is not supported"
-    actual_result = await evaluate(ars_quantity, crypto, date)
-    assert expected_result == actual_result
-
-
-@pytest.mark.asyncio
-async def test_unsupported_ars_quantity_value():
-    ars_quantity = -1
-    crypto = ""
-    date = ""
-    expected_result = "Argentinian pesos quantity should be greater than 0"
-    actual_result = await evaluate(ars_quantity, crypto, date)
-    assert expected_result == actual_result

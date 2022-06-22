@@ -67,4 +67,3 @@ def test_unsupported_crypto_with_actual_date():
     crypto = ""
     result = get_crypto_actual_price(crypto)
     assert result == "Crypto is not supported"
-    
