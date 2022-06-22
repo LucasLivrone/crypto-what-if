@@ -27,12 +27,19 @@ def date_is_supported(date):
         return True
 
 
-def input_validation(ars_quantity, crypto, date):
-    if ars_quantity <= 0:
-        return "Argentinian pesos quantity should be greater than 0"
-    elif len(crypto) == 0:
-        return "Crypto is not supported"
-    elif not date_is_supported(date):
-        return "Date is not supported"
+def input_is_valid(ars_quantity, crypto, date):
+    if ars_quantity > 0 and len(crypto) > 0 and date_is_supported(date):
+        return True
     else:
-        return "Input is valid"
+        return False
+
+
+def input_failure(ars_quantity, crypto, date):
+    failure_message = []
+    if ars_quantity <= 0:
+        failure_message.append("Argentinian pesos quantity should be greater than 0")
+    if len(crypto) == 0:
+        failure_message.append("Crypto is not supported")
+    if not date_is_supported(date):
+        failure_message.append("Date is not supported")
+    return failure_message

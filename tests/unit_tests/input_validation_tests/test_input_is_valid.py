@@ -1,0 +1,104 @@
+from src.utils.validation import input_is_valid
+from datetime import datetime, timedelta
+
+
+def test_supported_values():
+    ars_quantity = 1000
+    crypto = "bitcoin"
+    date = "30-12-2017"
+    expected_result = True
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_ars_quantity():
+    ars_quantity = -1
+    crypto = "bitcoin"
+    date = "30-12-2017"
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_ars_quantity_and_crypto():
+    ars_quantity = -1
+    crypto = ""
+    date = "30-12-2017"
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_ars_quantity_and_date():
+    ars_quantity = -1
+    crypto = "bitcoin"
+    date = ""
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_ars_quantity_and_crypto_and_date():
+    ars_quantity = -1
+    crypto = ""
+    date = ""
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_date():
+    ars_quantity = 1000
+    crypto = "bitcoin"
+    date = ""
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_date_and_crypto():
+    ars_quantity = 1000
+    crypto = ""
+    date = ""
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_crypto():
+    ars_quantity = 1000
+    crypto = ""
+    date = "30-12-2017"
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_past_date():
+    ars_quantity = 1000
+    crypto = "bitcoin"
+    date = "30-01-2013"
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_present_date():
+    ars_quantity = 1000
+    crypto = "bitcoin"
+    present_date = datetime.now()
+    present_date = present_date.strftime('%d-%m-%Y')  # actual date in DD-MM-YYYY format
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, present_date)
+    assert expected_result == actual_result
+
+
+def test_unsupported_future_date():
+    ars_quantity = 1000
+    crypto = "bitcoin"
+    present_date = datetime.now()
+    tomorrow_date = present_date + timedelta(1)
+    tomorrow_date = tomorrow_date.strftime('%d-%m-%Y')  # tomorrow's date in DD-MM-YYYY format
+    expected_result = False
+    actual_result = input_is_valid(ars_quantity, crypto, tomorrow_date)
+    assert expected_result == actual_result
