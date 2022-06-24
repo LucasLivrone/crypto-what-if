@@ -38,7 +38,7 @@ def input_failure(ars_quantity, crypto, date):
     failure_message = []
     if ars_quantity <= 0:
         failure_message.append("Argentinian pesos quantity should be greater than 0")
-    if len(crypto) == 0:
+    if not crypto.isalpha():
         failure_message.append("Crypto is not supported")
     if not date_is_supported(date):
         failure_message.append("Date is not supported")
