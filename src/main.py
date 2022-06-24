@@ -1,8 +1,10 @@
 import os
 import uvicorn
 from fastapi import FastAPI
+from starlette.responses import RedirectResponse
 from src.utils.calculator import calculate
 from src.utils.validation import input_is_valid, input_failure
+
 
 app = FastAPI(
     title="Crypto What If",
@@ -12,7 +14,9 @@ app = FastAPI(
 
 @app.get("/")
 async def root():
-    return {"message": "Hello World"}
+    response = RedirectResponse(url="/docs")
+    print(response.status_code)
+    return response
 
 
 @app.get("/ars={ars_quantity}/crypto={crypto}/date={date}")
