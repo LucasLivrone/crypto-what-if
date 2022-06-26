@@ -1,14 +1,6 @@
 import pytest
-from src.main import root
 from src.main import evaluate
 from src.utils.crypto_api import get_crypto_actual_price
-
-
-@pytest.mark.asyncio
-async def test_root():
-    expected_result = 307  # Temporary Redirect
-    actual_result = (await root()).status_code
-    assert expected_result == actual_result
 
 
 @pytest.mark.asyncio
