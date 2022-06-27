@@ -1,24 +1,70 @@
 import os
 import uvicorn
-from fastapi import FastAPI
+from fastapi import FastAPI, Path
 from src.utils.calculator import calculate
 from src.utils.validation import input_is_valid, input_failure
+from src.utils.vervose import get_verbose_evaluation
+
+
+description = """
+**Evaluate Argentinians saving decisions between USD and Crypto 💸**
+
+Due to high inflation rates, Argentinians have historically make the choice of saving their income in stronger currencies.
+
+Although the US dollar has always been the favorite choice, thanks to cryptocurrency there are now more options available.
+
+&nbsp;
+
+Have you ever asked yourself the question **"What if I had Invested in Cryptocurrencies before"**?      
+
+Using this API you will be able to select an amount of *Argentinian pesos*, a *cryptocurrency* and *date* in order to check how much your investment would be worth today.      
+In order to give more context, it will also check how many US Dollars you would have been able to save with that amount of pesos at that date.
+
+&nbsp;
+
+Disclaimer:
+* Since this tool is using a free API to retrieve historical cryptocurrency data, the oldest date available is 01-05-2013.
+* The source this tool is using to get ARS-USD historic values saves monthly data, so the latest date available is the previous month of present date.      
+(Example: If today is 26-06-2022, then the latest date available is 30-05-2022)  
+
+&nbsp;
+"""
+
+
+tags_metadata = [
+    {
+        "name": "Evaluation",
+        "description": "Calculate and evaluate investment improvement.",
+    }
+]
+
 
 app = FastAPI(
     title="Crypto What If",
-    description="Evaluate Argentinians saving decisions between USD and Crypto"
+    description=description,
+    docs_url="/",
+    version="latest",
+    contact={
+        "name": "Github",
+        "url": "https://github.com/LucasLivrone/crypto-what-if"
+    },
+    openapi_tags=tags_metadata,
+    swagger_ui_parameters={
+        "defaultModelsExpandDepth": -1,  # Used to hide Schemas at Docs site
+        "showExtensions": False
+    }
 )
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/ars={ars_quantity}/crypto={crypto}/date={date}")
-async def evaluate(ars_quantity: int, crypto: str, date: str):
+@app.get("/ars={ars_quantity}/crypto={crypto}/date={date}", tags=["Evaluation"])
+async def evaluate(
+        ars_quantity: int = Path(description="Argentinians pesos quantity"),
+        crypto: str = Path(description="Cryptocurrency name"),
+        date: str = Path(description="Date in the following format: DD-MM-YYYY")):
     if input_is_valid(ars_quantity, crypto, date):
-        return calculate(ars_quantity, crypto, date)
+        calculations = calculate(ars_quantity, crypto, date)
+        evaluation = get_verbose_evaluation(calculations, ars_quantity, crypto, date)
+        return evaluation
     else:
         return input_failure(ars_quantity, crypto, date)
 
