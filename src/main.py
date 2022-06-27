@@ -3,6 +3,7 @@ import uvicorn
 from fastapi import FastAPI, Path
 from src.utils.calculator import calculate
 from src.utils.validation import input_is_valid, input_failure
+from src.utils.vervose import get_verbose_evaluation
 
 
 description = """
@@ -61,7 +62,9 @@ async def evaluate(
         crypto: str = Path(description="Cryptocurrency name"),
         date: str = Path(description="Date in the following format: DD-MM-YYYY")):
     if input_is_valid(ars_quantity, crypto, date):
-        return calculate(ars_quantity, crypto, date)
+        calculations = calculate(ars_quantity, crypto, date)
+        evaluation = get_verbose_evaluation(calculations, ars_quantity, crypto, date)
+        return evaluation
     else:
         return input_failure(ars_quantity, crypto, date)
 
