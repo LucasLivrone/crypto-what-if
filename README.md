@@ -1,6 +1,5 @@
 # Crypto What If
 
-![Website](https://img.shields.io/website?down_color=red&down_message=Down&label=API%20status&up_color=brightgreen&up_message=UP&url=https%3A%2F%2Fcrypto-what-if.herokuapp.com%2Fdocs)
 ![Tests](https://github.com/LucasLivrone/crypto-what-if/actions/workflows/Tests.yml/badge.svg)
 [![codecov](https://codecov.io/gh/LucasLivrone/crypto-what-if/branch/main/graph/badge.svg?token=Z1DE1KYAYZ)](https://codecov.io/gh/LucasLivrone/crypto-what-if)
 
