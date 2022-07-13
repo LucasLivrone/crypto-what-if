@@ -9,7 +9,7 @@ from src.utils.vervose import get_verbose_evaluation
 description = """
 **Evaluate Argentinians saving decisions between USD and Crypto 💸**
 
-Due to high inflation rates, Argentinians have historically make the choice of saving their income in stronger currencies.
+Due to high inflation rates, Argentinians have historically made the choice of saving their income in stronger currencies.
 
 Although the US dollar has always been the favorite choice, thanks to cryptocurrency there are now more options available.
 
